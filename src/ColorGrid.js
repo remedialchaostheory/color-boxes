@@ -1,47 +1,26 @@
 import React, { Component } from 'react';
 import ColorBox from "./ColorBox";
-import { choose } from "./helpers";
+import './ColorGrid.css';
 
 class ColorGrid extends Component {
   static defaultProps = {
     allColors: [
-        'blue',
+      'blue',
       'yellow',
       'green',
-      // 'red',
-      // 'purple',
-      // 'black',
-      // 'white',
-      // 'pink',
+      'red',
+      'purple',
+      'pink',
     ],
     numBoxes: 18
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      color: choose(this.props.allColors),
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  pickColor() {
-     let newColor;
-     do {
-       newColor = choose(this.props.allColors);
-     } while (newColor === this.state.color);
-
-     this.setState({ color: newColor });
-  }
-  handleClick(e) {
-    this.pickColor();
-  }
 
   render() {
-    const boxes = Array.from({length: this.props.numBoxes}).map(() => <ColorBox />);
+    const boxes = Array.from({length: this.props.numBoxes}).map(() =>
+        (<ColorBox allColors={this.props.allColors}/>));
     return (
-        <div className="ColorGrid" style={{backgroundColor: this.state.color}}
-            onClick={this.handleClick}>
+        <div className="ColorGrid">
           {boxes}
         </div>
     );
